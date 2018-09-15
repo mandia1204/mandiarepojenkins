@@ -1,4 +1,5 @@
 import restaurant.sample.Person
 
 app = new Person()
-app.hello()
+def res = app.hello()
+println(res)

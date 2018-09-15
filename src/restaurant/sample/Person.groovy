@@ -1,7 +1,7 @@
 package restaurant.sample
 
 class Person {
-    void hello() {
-        println("Hello from person class")
+    String hello() {
+        return "Hello from person class updated"
     }
 }
