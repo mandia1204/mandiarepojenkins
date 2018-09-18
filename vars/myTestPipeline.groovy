@@ -22,6 +22,7 @@ def call(Map pipelineParams) {
                 }
             }
             stage('Test') {
+                when { expression { return pipelineParams.runTest } }
                 steps {
                     echo 'Testing...'
                 }
