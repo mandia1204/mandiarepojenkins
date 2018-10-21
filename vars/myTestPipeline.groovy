@@ -24,8 +24,10 @@ def call(Map pipelineParams) {
                 }
             }
             stage('deploy') {
-                def util = new SSHUtil()
-                util.copyFiles()
+                script {
+                    def util = new SSHUtil()
+                    util.copyFiles()
+                }
             }
             stage('Test') {
                 when { expression { return pipelineParams.runTest } }
