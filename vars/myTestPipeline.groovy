@@ -26,7 +26,9 @@ def call(Map pipelineParams) {
             stage('deploy') {
                 steps {
                     copyFiles()
-                    sshUtil.publish configName: 'kube-server', command:'./test.sh', removePrefix: 'dist', sourceFiles:'dist/**', dir: 'copied'
+                    script {
+                        sshUtil.publish configName: 'kube-server', command:'./test.sh', removePrefix: 'dist', sourceFiles:'dist/**', dir: 'copied'
+                    }
                 }
             }
             stage('Test') {
