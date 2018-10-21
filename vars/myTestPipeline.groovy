@@ -23,6 +23,7 @@ def call(Map pipelineParams) {
             stage('deploy') {
                 steps {
                     copyFiles()
+                    publishFiles()
                 }
             }
             stage('Test') {
