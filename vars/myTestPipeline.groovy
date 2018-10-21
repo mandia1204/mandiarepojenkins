@@ -1,5 +1,4 @@
 import restaurant.sample.Person
-import restaurant.sample.SSHUtil
 
 def call(Map pipelineParams) {
     pipeline {
@@ -23,10 +22,7 @@ def call(Map pipelineParams) {
             }
             stage('deploy') {
                 steps {
-                    script {
-                        def util = new SSHUtil()
-                        util.copyFiles()
-                    }
+                    copyFiles()
                 }
             }
             stage('Test') {
