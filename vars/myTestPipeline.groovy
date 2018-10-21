@@ -22,7 +22,10 @@ def call(Map pipelineParams) {
             }
             stage('deploy') {
                 steps {
-                    copyFiles()
+                    script {
+                        def util = new restaurant.sample.SSHUtil()
+                        util.copyFiles()
+                    }
                     publishFiles()
                 }
             }
