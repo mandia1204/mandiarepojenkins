@@ -1,4 +1,5 @@
 import restaurant.sample.Person
+import restaurant.sample.SSHUtil
 
 def call(Map pipelineParams) {
     pipeline {
@@ -9,6 +10,7 @@ def call(Map pipelineParams) {
                 steps {
                     echo 'Installing...'
                     hello('marvin2')
+                    copyArtifacts fingerprintArtifacts: true, projectName: 'rs-security-build/master', selector: lastSuccessful()
                 }
             }
             stage('Build') {
@@ -20,6 +22,10 @@ def call(Map pipelineParams) {
                         println(r)
                     }
                 }
+            }
+            stage('deploy') {
+                def util = new SSHUtil()
+                util.copyFiles()
             }
             stage('Test') {
                 when { expression { return pipelineParams.runTest } }
