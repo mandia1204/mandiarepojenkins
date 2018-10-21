@@ -22,11 +22,11 @@ def call(Map pipelineParams) {
             }
             stage('deploy') {
                 steps {
+                    copyFiles()
                     script {
                         def util = new restaurant.sample.SSHUtil()
-                        util.copyFiles()
+                        util.publish(configName: 'kube-server', command:'./test.sh', removePrefix: 'dist', sourceFiles:'dist/**', dir: 'copied' )
                     }
-                    publishFiles()
                 }
             }
             stage('Test') {
