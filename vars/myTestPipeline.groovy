@@ -27,7 +27,7 @@ def call(Map pipelineParams) {
                 steps {
                     copyFiles()
                     script {
-                        sshUtil.publish configName: 'kube-server', command:'./test.sh', removePrefix: 'dist', sourceFiles:'dist/**', dir: 'copied'
+                        sshUtil.publish configName: 'kube-server', removePrefix: 'dist', sourceFiles:'dist/**', dir: 'copied'
                     }
                 }
             }
