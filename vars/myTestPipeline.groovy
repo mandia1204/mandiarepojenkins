@@ -24,9 +24,11 @@ def call(Map pipelineParams) {
                 }
             }
             stage('deploy') {
-                script {
-                    def util = new SSHUtil()
-                    util.copyFiles()
+                steps {
+                    script {
+                        def util = new SSHUtil()
+                        util.copyFiles()
+                    }
                 }
             }
             stage('Test') {
