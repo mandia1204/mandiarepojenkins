@@ -8,9 +8,7 @@ def call(Map pipelineParams) {
         stages {
             stage('Install dependencies') {
                 steps {
-                    echo 'Installing...'
                     hello('marvin2')
-                    copyArtifacts fingerprintArtifacts: true, projectName: 'rs-security-build/master', selector: lastSuccessful()
                 }
             }
             stage('Build') {
