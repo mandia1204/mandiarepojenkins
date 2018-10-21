@@ -7,6 +7,9 @@ def call(Map pipelineParams) {
         stages {
             stage('Install dependencies') {
                 steps {
+                    script {
+                        def util = new restaurant.sample.SSHUtil()
+                    }
                     hello('marvin2')
                 }
             }
@@ -24,7 +27,6 @@ def call(Map pipelineParams) {
                 steps {
                     copyFiles()
                     script {
-                        def util = new restaurant.sample.SSHUtil()
                         util.publish(configName: 'kube-server', command:'./test.sh', removePrefix: 'dist', sourceFiles:'dist/**', dir: 'copied' )
                     }
                 }
