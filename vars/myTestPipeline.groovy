@@ -11,7 +11,7 @@ def call(Map pipelineParams) {
                         sshUtil = new restaurant.sample.SSHUtil()
                     }
                     hello('marvin2')
-                    echo "my env: ${pipelineParams.script.env.HOME}"
+                    echo "my env: ${pipelineParams.script.env.BUILD_NUMBER}"
                 }
             }
             stage('Build') {
