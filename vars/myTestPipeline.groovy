@@ -1,4 +1,4 @@
-import restaurant.sample.Person
+import restaurant.sample.*
 
 def call(Map pipelineParams) {
     pipeline {
@@ -28,7 +28,9 @@ def call(Map pipelineParams) {
                 steps {
                     copyFiles()
                     script {
-                        sshUtil.publish configName: 'kube-server', removePrefix: 'dist', sourceFiles:'dist/**', dir: 'copied'
+                        def imageTag = TagGenerator.generateImageTag("${env.BUILD_NUMBER}")
+                        echo imageTag
+                        sshUtil.publish configName: 'kube-server', command: 'ls -l'
                     }
                 }
             }
