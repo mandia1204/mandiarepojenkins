@@ -12,6 +12,9 @@ def call(Map pipelineParams) {
                     }
                     hello('marvin2')
                     echo "my env: ${pipelineParams.script.env.getEnvironment()}"
+                    echo "my env2: ${env.BUILD_NUMBER}"
+                    echo "my env3: ${pipelineParams.script.env['BUILD_NUMBER']}"
+
                 }
             }
             stage('Build') {
