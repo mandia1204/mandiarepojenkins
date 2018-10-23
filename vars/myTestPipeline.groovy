@@ -32,6 +32,8 @@ def call(Map params) {
                         def imageTag = TagGenerator.generateImageTag("${env.BUILD_NUMBER}")
                         def command = "/restaurant/deploy/./build-image.sh -t ${imageTag} -a ${params.appName}"
                         sshUtil.publish configName: 'kube-server', command: command
+                        def commandUpd = "/restaurant/deploy/./update-app.sh -t ${imageTag} -a ${params.appName}"
+                        sshUtil.publish configName: 'kube-server', command: commandUpd
                     }
                 }
             }
