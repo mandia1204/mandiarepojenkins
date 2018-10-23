@@ -1,6 +1,6 @@
 import restaurant.sample.*
 
-def call(Map pipelineParams) {
+def call(Map params) {
     pipeline {
         agent any
         tools {nodejs "node"}
@@ -16,7 +16,7 @@ def call(Map pipelineParams) {
             }
             stage('Build') {
                 steps {
-                    echo "Building... ${pipelineParams.myMessage}"
+                    echo "Building... ${params.myMessage}"
                     script {
                         def p = new Person()
                         def r = p.hello()
@@ -29,13 +29,13 @@ def call(Map pipelineParams) {
                     copyFiles()
                     script {
                         def imageTag = TagGenerator.generateImageTag("${env.BUILD_NUMBER}")
-                        echo imageTag
-                        sshUtil.publish configName: 'kube-server', command: 'ls -l'
+                        def command = "./restaurant/deploy/build-image.sh -i ${params.repoName}:${imageTag} -a ${params.appName}"
+                        sshUtil.publish configName: 'kube-server', command: command
                     }
                 }
             }
             stage('Test') {
-                when { expression { return pipelineParams.runTest } }
+                when { expression { return params.runTest } }
                 steps {
                     echo 'Testing...'
                 }
