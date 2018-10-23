@@ -29,7 +29,7 @@ def call(Map params) {
                     copyFiles()
                     script {
                         def imageTag = TagGenerator.generateImageTag("${env.BUILD_NUMBER}")
-                        def command = "./restaurant/deploy/build-image.sh -i ${params.repoName}:${imageTag} -a ${params.appName}"
+                        def command = "/restaurant/deploy/./build-image.sh -i ${params.repoName}:${imageTag} -a ${params.appName}"
                         sshUtil.publish configName: 'kube-server', command: command
                     }
                 }
