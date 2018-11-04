@@ -18,7 +18,7 @@ def call(Map params) {
                         appName= 'security'
                         sh "~/restaurant/deploy/./copy-artifact.sh -w ${env.WORKSPACE} -a ${appName}"
                     }
-                    sh "tar -czvf myfile.tar /hh/ff"
+                    sh "~/restaurant/deploy/./test.sh"
                 }
             }
         }
