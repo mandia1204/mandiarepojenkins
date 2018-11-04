@@ -15,10 +15,9 @@ def call(Map params) {
             stage('Backup existing dist and copy new from ws') {
                 steps {
                     script {
-                        appName= 'security'
-                        sh "~/restaurant/deploy/./copy-artifact.sh -w ${env.WORKSPACE} -a ${appName}"
+                        def status = sh(returnStatus: true, script: "~/restaurant/deploy/./test.sh")
+                        println status
                     }
-                    sh "~/restaurant/deploy/./test.sh"
                 }
             }
         }
