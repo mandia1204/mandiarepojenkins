@@ -9,7 +9,7 @@ def call(Map params) {
                 steps {
                     copyFiles()
                     sh "pwd"
-                    sh "ls -l"
+                    sh "ls -l dist"
                 }
             }
             stage('Backup existing dist and copy new from ws') {
