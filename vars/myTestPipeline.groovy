@@ -52,10 +52,5 @@ def call(Map params) {
                 }
             }
         }
-        post {
-            always {
-                archiveArtifacts 'dist/**/*'
-            }
-        }
     }
 }
