@@ -14,7 +14,9 @@ def call(Map params) {
             }
             stage('Backup existing dist and copy new from ws') {
                 steps {
-                    sh "~/restaurant/deploy/./test.sh"
+                    script {
+                        sh "~/restaurant/deploy/./test.sh"
+                    }
                 }
             }
         }
