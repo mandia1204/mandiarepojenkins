@@ -37,8 +37,11 @@ def call(Map params) {
             stage('Backup existing dist and copy new from ws') {
                 steps {
                     script {
-                        def dateFormat = (new Date()).format('MMddyyyyHHmmss')
-                        sh "tar -czvf ${dateFormat}.tar.gz /home/jenkins/restaurant/${params.appName}/dist"
+                        def fileName = "${(new Date()).format('MMddyyyyHHmmss')}.tar.gz"
+                        sh "tar -czvf ${fileName} ~/restaurant/${params.appName}/dist"
+                        sh "mv ${fileName} ~/restaurant/${params.appName}/backup"
+                        sh "rm -rf ~/restaurant/${params.appName}/dist"
+                        sh "mv ${env.WORKSPACE}/dist ~/restaurant/${params.appName}"
                     }
                 }
             }
