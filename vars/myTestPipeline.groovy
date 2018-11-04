@@ -15,8 +15,10 @@ def call(Map params) {
             stage('Backup existing dist and copy new from ws') {
                 steps {
                     script {
-                        sh "~/restaurant/deploy/./test.sh"
+                        imageTag = '123121212_abcd'
+                        appName= 'security'
                     }
+                    sh "${env.HOME}/restaurant/deploy/./test.sh -t ${imageTag} -a ${appName}"
                 }
             }
         }
