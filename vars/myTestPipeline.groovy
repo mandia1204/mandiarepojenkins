@@ -28,7 +28,9 @@ def call(Map params) {
                 steps {
                     copyFiles()
                     script {
-                        sh "~/restaurant/deploy/./test.sh"
+                        imageTag = '123121212_abcd'
+                        appName= 'security'
+                        sh "~/restaurant/deploy/./test.sh -t ${imageTag} -a ${appName}"
                     }
                 }
             }
