@@ -30,8 +30,14 @@ def call(Map params) {
                     script {
                         imageTag = '123121212_abcd'
                         appName= 'security'
-                        sh "~/restaurant/deploy/./build-image.sh -t ${imageTag} -a ${appName}"
+                        sh "~/restaurant/deploy/./test.sh -t ${imageTag} -a ${appName}"
                     }
+                }
+            }
+            stage('Backup existing dist and copy new from ws') {
+                steps {
+                    def dateFormat = (new Date()).format('MMddyyyyHHmmss')
+                    sh "tar -czvf ${dateFormat}.tar.gz /home/jenkins/restaurant/${params.appName}/dist"
                 }
             }
             stage('Test') {
