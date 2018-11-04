@@ -5,7 +5,7 @@ def call(Map params) {
         agent { label 'slave01' }
         tools {nodejs "node"}
         stages {
-            stage('copy artifact to ws') {
+            stage('deploy') {
                 steps {
                     copyFiles()
                     sh "pwd"
@@ -15,8 +15,11 @@ def call(Map params) {
             stage('Backup existing dist and copy new from ws') {
                 steps {
                     script {
-                        appName= 'security'
-                        sh "~/restaurant/deploy/./copy-artifact.sh -w ${env.WORKSPACE} -a ${appName}"
+                        def fileName = "${(new Date()).format('MMddyyyyHHmmss')}.tar.gz"
+                        sh "tar -czvf ${fileName} ~/restaurant/${params.appName}/dist"
+                        sh "mv ${fileName} ~/restaurant/${params.appName}/backup"
+                        sh "rm -rf ~/restaurant/${params.appName}/dist"
+                        sh "mv ${env.WORKSPACE}/dist ~/restaurant/${params.appName}"
                     }
                 }
             }
