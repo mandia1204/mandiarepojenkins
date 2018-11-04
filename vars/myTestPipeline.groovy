@@ -2,7 +2,7 @@ import restaurant.sample.*
 
 def call(Map params) {
     pipeline {
-        agent any
+        agent { label 'slave01' }
         tools {nodejs "node"}
         stages {
             stage('Install dependencies') {
@@ -28,12 +28,7 @@ def call(Map params) {
                 steps {
                     copyFiles()
                     script {
-                        sshUtil.publish configName: 'kube-server', removePrefix: 'dist', sourceFiles:'dist/**', dir: 'security/dist'
-                        def imageTag = TagGenerator.generateImageTag("${env.BUILD_NUMBER}")
-                        def command = "/restaurant/deploy/./build-image.sh -t ${imageTag} -a ${params.appName}"
-                        sshUtil.publish configName: 'kube-server', command: command
-                        def commandUpd = "/restaurant/deploy/./update-app.sh -t ${imageTag} -a ${params.appName}"
-                        sshUtil.publish configName: 'kube-server', command: commandUpd
+                        sh "~/restaurant/deploy/./test.sh"
                     }
                 }
             }
